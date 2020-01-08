@@ -9,3 +9,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 && pecl install -o -f redis && docker-php-ext-enable redis \
 && rm -rf /tmp/* \
 && apk del .phpize-deps
+RUN apk add --no-cache --repository http://mirrors.aliyun.com/alpine/edge/community gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
