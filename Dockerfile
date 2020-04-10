@@ -3,8 +3,8 @@ FROM php:7.2-fpm-alpine
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 && set -eux \
 && apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS \
-&& pecl install grpc \
-&& apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev icu-dev \
+&& apk add --no-cache linux-headers freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev icu-dev \
+&& pecl install grpc && docker-php-ext-enable grpc \
 && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install mysqli pcntl pdo_mysql opcache intl gd \
 && pecl install -o -f redis && docker-php-ext-enable redis \
